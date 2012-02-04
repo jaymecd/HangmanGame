@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="hangman.game_context.class">Game\Bundle\HangmanBundle\GameContext</parameter>
+        <parameter key="hangman.word_list.class">Game\Bundle\HangmanBundle\WordList</parameter>
+    </parameters>
+
+    <services>
+        <service id="hangman.game_context" class="%hangman.game_context.class%">
+            <argument type="service" id="session.storage" />
+            <argument type="service" id="hangman.word_list" />
+        </service>
+
+        <service id="hangman.word_list" class="%hangman.word_list.class%" public="false">
+            <argument>%hangman.word_list.dictionaries%</argument>
+            <call method="loadDictionaries"/>
+        </service>
+
+    </services>
+
+</container>

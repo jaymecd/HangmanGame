@@ -1,0 +1,43 @@
+{% extends "GameHangmanBundle::layout.html.twig" %}
+
+{% block title -%}
+
+    Hangman Game
+
+{%- endblock title %}
+
+{% block body %}
+
+    <p>
+        You still have {{ game.remainingAttempts }} remaining attempts.
+    </p>
+
+    <p>
+        {% for letter in game.wordLetters %}
+
+            {{ game.isLetterFound(letter) ? letter : '?' }}
+
+        {% endfor %}
+    </p>
+
+    <h2>Try a letter</h2>
+
+        <p>
+            {% for letter in 'A'..'Z' %}
+                <a href="{{ path('play_letter', { 'letter': letter }) }}">
+                    {{ letter }}
+                </a>&nbsp;
+            {% endfor %}
+        </p>
+
+    <h2>Try a word</h2>
+
+        <form action="{{ path('play_word') }}" method="post">
+            <p>
+                <label for="word">Word:</label>
+                <input type="text" name="word"/>
+                <button type="submit">Let me guess...</button>
+            </p>
+        </form>
+
+{% endblock body %}

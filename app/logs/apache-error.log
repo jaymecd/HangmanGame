@@ -1,0 +1,24 @@
+[Sat Feb 04 15:57:07 2012] [error] [client 127.0.0.1] PHP Fatal error:  Class 'Game\\Bundle\\HangmanBundle\\Controller\\Word' not found in /Users/Hugo/Sites/Hangman/src/Game/Bundle/HangmanBundle/Controller/GameController.php on line 25
+[Sat Feb 04 15:57:07 2012] [error] [client 127.0.0.1] PHP Stack trace:
+[Sat Feb 04 15:57:07 2012] [error] [client 127.0.0.1] PHP   1. {main}() /Users/Hugo/Sites/Hangman/web/app_dev.php:0
+[Sat Feb 04 15:57:07 2012] [error] [client 127.0.0.1] PHP   2. Symfony\\Component\\HttpKernel\\Kernel->handle() /Users/Hugo/Sites/Hangman/web/app_dev.php:24
+[Sat Feb 04 15:57:07 2012] [error] [client 127.0.0.1] PHP   3. Symfony\\Bundle\\FrameworkBundle\\HttpKernel->handle() /Users/Hugo/Sites/Hangman/app/bootstrap.php.cache:547
+[Sat Feb 04 15:57:07 2012] [error] [client 127.0.0.1] PHP   4. Symfony\\Component\\HttpKernel\\HttpKernel->handle() /Users/Hugo/Sites/Hangman/app/cache/dev/classes.php:4847
+[Sat Feb 04 15:57:07 2012] [error] [client 127.0.0.1] PHP   5. Symfony\\Component\\HttpKernel\\HttpKernel->handleRaw() /Users/Hugo/Sites/Hangman/app/cache/dev/classes.php:3871
+[Sat Feb 04 15:57:07 2012] [error] [client 127.0.0.1] PHP   6. call_user_func_array() /Users/Hugo/Sites/Hangman/app/cache/dev/classes.php:3901
+[Sat Feb 04 15:57:07 2012] [error] [client 127.0.0.1] PHP   7. Game\\Bundle\\HangmanBundle\\Controller\\GameController->indexAction() /Users/Hugo/Sites/Hangman/app/cache/dev/classes.php:3901
+[Sat Feb 04 18:32:13 2012] [error] [client 127.0.0.1] PHP Fatal error:  Call to undefined method Symfony\\Component\\Config\\Definition\\Builder\\ArrayNodeDefinition::setRequired() in /Users/Hugo/Sites/Hangman/src/Game/Bundle/HangmanBundle/DependencyInjection/Configuration.php on line 25
+[Sat Feb 04 18:32:13 2012] [error] [client 127.0.0.1] PHP Stack trace:
+[Sat Feb 04 18:32:13 2012] [error] [client 127.0.0.1] PHP   1. {main}() /Users/Hugo/Sites/Hangman/web/app_dev.php:0
+[Sat Feb 04 18:32:13 2012] [error] [client 127.0.0.1] PHP   2. Symfony\\Component\\HttpKernel\\Kernel->handle() /Users/Hugo/Sites/Hangman/web/app_dev.php:24
+[Sat Feb 04 18:32:13 2012] [error] [client 127.0.0.1] PHP   3. Symfony\\Component\\HttpKernel\\Kernel->boot() /Users/Hugo/Sites/Hangman/app/bootstrap.php.cache:544
+[Sat Feb 04 18:32:13 2012] [error] [client 127.0.0.1] PHP   4. Symfony\\Component\\HttpKernel\\Kernel->initializeContainer() /Users/Hugo/Sites/Hangman/app/bootstrap.php.cache:513
+[Sat Feb 04 18:32:13 2012] [error] [client 127.0.0.1] PHP   5. Symfony\\Component\\HttpKernel\\Kernel->buildContainer() /Users/Hugo/Sites/Hangman/app/bootstrap.php.cache:779
+[Sat Feb 04 18:32:13 2012] [error] [client 127.0.0.1] PHP   6. Symfony\\Component\\DependencyInjection\\ContainerBuilder->compile() /Users/Hugo/Sites/Hangman/app/bootstrap.php.cache:868
+[Sat Feb 04 18:32:13 2012] [error] [client 127.0.0.1] PHP   7. Symfony\\Component\\DependencyInjection\\Compiler\\Compiler->compile() /Users/Hugo/Sites/Hangman/vendor/symfony/src/Symfony/Component/DependencyInjection/ContainerBuilder.php:437
+[Sat Feb 04 18:32:13 2012] [error] [client 127.0.0.1] PHP   8. Symfony\\Component\\HttpKernel\\DependencyInjection\\MergeExtensionConfigurationPass->process() /Users/Hugo/Sites/Hangman/vendor/symfony/src/Symfony/Component/DependencyInjection/Compiler/Compiler.php:119
+[Sat Feb 04 18:32:13 2012] [error] [client 127.0.0.1] PHP   9. Symfony\\Component\\DependencyInjection\\Compiler\\MergeExtensionConfigurationPass->process() /Users/Hugo/Sites/Hangman/vendor/symfony/src/Symfony/Component/HttpKernel/DependencyInjection/MergeExtensionConfigurationPass.php:39
+[Sat Feb 04 18:32:13 2012] [error] [client 127.0.0.1] PHP  10. Game\\Bundle\\HangmanBundle\\DependencyInjection\\GameHangmanExtension->load() /Users/Hugo/Sites/Hangman/vendor/symfony/src/Symfony/Component/DependencyInjection/Compiler/MergeExtensionConfigurationPass.php:42
+[Sat Feb 04 18:32:13 2012] [error] [client 127.0.0.1] PHP  11. Symfony\\Component\\HttpKernel\\DependencyInjection\\Extension->processConfiguration() /Users/Hugo/Sites/Hangman/src/Game/Bundle/HangmanBundle/DependencyInjection/GameHangmanExtension.php:23
+[Sat Feb 04 18:32:13 2012] [error] [client 127.0.0.1] PHP  12. Symfony\\Component\\Config\\Definition\\Processor->processConfiguration() /Users/Hugo/Sites/Hangman/vendor/symfony/src/Symfony/Component/HttpKernel/DependencyInjection/Extension.php:101
+[Sat Feb 04 18:32:13 2012] [error] [client 127.0.0.1] PHP  13. Game\\Bundle\\HangmanBundle\\DependencyInjection\\Configuration->getConfigTreeBuilder() /Users/Hugo/Sites/Hangman/vendor/symfony/src/Symfony/Component/Config/Definition/Processor.php:52
