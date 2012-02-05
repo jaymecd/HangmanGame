@@ -75,12 +75,10 @@ class Game
 
     public function tryLetter($letter)
     {
-        $result = false;
-
         try {
             $result = $this->word->tryLetter($letter);
         } catch (\InvalidArgumentException $e) {
-            
+            $result = false;
         }
 
         if (false === $result) {
