@@ -4,6 +4,7 @@ namespace Game\Bundle\HangmanBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Game\Bundle\HangmanBundle\Word;
@@ -26,7 +27,7 @@ class GameController extends Controller
     public function indexAction(Request $request)
     {
         $context = $this->get('hangman.game_context');
-        $length  = $request->query->get('length', 8);
+        $length  = $request->query->get('length', $this->container->getParameter('hangman.word_length'));
 
         if (!$game = $context->loadGame()) {
             $game = $context->newGame($length);
@@ -70,6 +71,7 @@ class GameController extends Controller
      * This action allows the player to try to guess the word.
      *
      * @Route("/word", name="play_word")
+     * @Method("POST")
      *
      * @param Request $request The Request object
      * @return RedirectResponse
@@ -89,11 +91,7 @@ class GameController extends Controller
             return $this->redirect($this->generateUrl('game_won'));
         }
 
-        if ($game->isHanged()) {
-            return $this->redirect($this->generateUrl('game_hanged'));
-        }
-
-        return $this->redirect($this->generateUrl('hangman_game'));
+        return $this->redirect($this->generateUrl('game_hanged'));
     }
 
     /**

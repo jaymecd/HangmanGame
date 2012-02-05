@@ -61,8 +61,6 @@ swiftmailer:
 
 # Hangman Configuration
 game_hangman:
-
     dictionaries:
         - "%kernel.root_dir%/data/words.txt"
         - "%kernel.root_dir%/data/words.xml"
-

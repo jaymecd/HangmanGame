@@ -12,11 +12,11 @@
         You still have {{ game.remainingAttempts }} remaining attempts.
     </p>
 
-    <p>
+    <p class="word_letters">
         {% for letter in game.wordLetters %}
-
-            {{ game.isLetterFound(letter) ? letter : '?' }}
-
+            <span class="letter {{ game.isLetterFound(letter) ? 'guessed' : 'hidden' }}">
+                {{ game.isLetterFound(letter) ? letter : '?' }}
+            </span>
         {% endfor %}
     </p>
 

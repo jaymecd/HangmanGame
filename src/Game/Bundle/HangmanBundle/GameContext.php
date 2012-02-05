@@ -44,19 +44,13 @@ class GameContext
             return false;
         }
 
-        $word = new Word(
-            $data['word'],
-            $data['found_letters'],
-            $data['tried_letters']
-        );
+        $word = new Word($data['word'], $data['found_letters'], $data['tried_letters']);
 
         return new Game($word, $data['attempts']);
     }
 
     public function save(Game $game)
     {
-        $data = $game->getContext();
-
-        $this->storage->write('hangman', $data);
+        $this->storage->write('hangman', $game->getContext());
     }
 }

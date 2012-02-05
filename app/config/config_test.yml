@@ -1,6 +1,9 @@
 imports:
     - { resource: config_dev.yml }
 
+parameters:
+    hangman.word_length: 3
+
 framework:
     test: ~
     session:

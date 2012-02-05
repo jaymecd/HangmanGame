@@ -25,9 +25,15 @@ class GameHangmanExtension extends Extension
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.xml');
 
-        $config = current($configs);
-        if (isset($config['dictionaries'])) {
-            $container->setParameter('hangman.word_list.dictionaries', $config['dictionaries']);
+        $env = $container->getParameter('kernel.environment');
+
+        if (in_array($env, array('dev', 'prod'))) {
+            $config = current($configs);
+            $dictionaries = $config['dictionaries'];
+        } else {
+            $dictionaries = array(__DIR__.'/../Tests/Fixtures/words.txt');
         }
+
+        $container->setParameter('hangman.word_list.dictionaries', $dictionaries);
     }
 }
