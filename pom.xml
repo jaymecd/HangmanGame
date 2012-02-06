@@ -31,7 +31,7 @@
         <sonar.dynamicAnalysis>true</sonar.dynamicAnalysis>
 
         <sonar.phpDepend.shouldRun>true</sonar.phpDepend.shouldRun>
-        <sonar.phpDepend.exclude>vendor/, app/, bin/, web/</sonar.phpDepend.exclude>
+        <sonar.phpDepend.exclude>vendor/, app/, bin/, web/, src/*/Bundle/*Bundle/Tests</sonar.phpDepend.exclude>
 
         <sonar.phpPmd.shouldRun>true</sonar.phpPmd.shouldRun>
         <sonar.phpPmd.analyzeOnly>false</sonar.phpPmd.analyzeOnly>
