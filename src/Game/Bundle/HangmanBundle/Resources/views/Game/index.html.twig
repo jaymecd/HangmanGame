@@ -8,27 +8,33 @@
 
 {% block body %}
 
-    <p>
-        You still have {{ game.remainingAttempts }} remaining attempts.
-    </p>
+    <h2>Guess the mysterious word</h2>
 
-    <p class="word_letters">
-        {% for letter in game.wordLetters %}
-            <span class="letter {{ game.isLetterFound(letter) ? 'guessed' : 'hidden' }}">
-                {{ game.isLetterFound(letter) ? letter : '?' }}
-            </span>
-        {% endfor %}
-    </p>
+        <p>
+            You still have {{ game.remainingAttempts }} remaining attempts.
+        </p>
+
+        <ul class="word_letters">
+            {% for letter in game.wordLetters %}
+                <li class="letter {{ game.isLetterFound(letter) ? 'guessed' : 'hidden' }}">
+                    {{ game.isLetterFound(letter) ? letter : '?' }}
+                </li>
+            {% endfor %}
+        </ul>
+
+        <br class="clearfix" />
 
     <h2>Try a letter</h2>
 
-        <p>
+        <ul>
             {% for letter in 'A'..'Z' %}
-                <a href="{{ path('play_letter', { 'letter': letter }) }}">
-                    {{ letter }}
-                </a>&nbsp;
+                <li class="letter">
+                    <a href="{{ path('play_letter', { 'letter': letter }) }}">
+                        {{ letter }}
+                    </a>
+                </li>
             {% endfor %}
-        </p>
+        </ul>
 
     <h2>Try a word</h2>
 
