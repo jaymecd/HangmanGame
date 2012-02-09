@@ -31,7 +31,7 @@ class GameControllerTest extends WebTestCase
         $this->assertCount(1, $crawler->filter('.word_letters .hidden'));
 
         // Click the reset link
-        $reset = $crawler->selectLink('reset the game')->link();
+        $reset = $crawler->selectLink('Reset the game')->link();
         $this->client->click($reset);
 
         // Check the initial state
