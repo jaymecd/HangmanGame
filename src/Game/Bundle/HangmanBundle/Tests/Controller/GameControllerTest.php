@@ -48,21 +48,29 @@ class GameControllerTest extends WebTestCase
         $this->assertCount(0, $crawler->filter('.word_letters .guessed'));
         $this->assertCount(3, $crawler->filter('.word_letters .hidden'));
 
-        // Click letter P
-        $letter = $crawler->selectLink('P')->link();
-        $this->client->click($letter);
-        $crawler = $this->client->followRedirect();
+        $crawler = $this->playLetter('P');
         $this->assertCount(2, $crawler->filter('.word_letters .guessed'));
         $this->assertCount(1, $crawler->filter('.word_letters .hidden'));
 
-        // Click letter H
-        $letter = $crawler->selectLink('H')->link();
-        $this->client->click($letter);
+        $this->playLetter('H');
 
-        // Check the game is won
-        $crawler = $this->client->followRedirect();
-        $response = $this->client->getResponse();
-        $this->assertRegexp('#Congratulations, you found the word <strong>php<\/strong>#', $response->getContent());
+        $this->assertRegexp('#Congratulations, you found the word <strong>php<\/strong>#', $this->client->getResponse()->getContent());
+    }
+
+    /**
+     * Clicks on a letter and returns the Crawler object.
+     *
+     * @param string $letter The letter to click
+     * @return Crawler
+     */
+    private function playLetter($letter)
+    {
+        $crawler = $this->client->getCrawler();
+
+        $link = $crawler->selectLink($letter)->link();
+        $this->client->click($link);
+
+        return $this->client->followRedirect();
     }
 
     public function testTryWord()
@@ -87,7 +95,7 @@ class GameControllerTest extends WebTestCase
         $crawler = $this->client->request('GET', '/game/hangman/');
         $form = $crawler->selectButton('Let me guess...')->form();
         $this->client->submit($form, array('word' => $word));
-        $crawler = $this->client->followRedirect();
+        $this->client->followRedirect();
     }
 
     public function testGuessLetterAndGetHanged()
