@@ -261,6 +261,12 @@ ul h4 {
     position: relative;
 }
 
+#page .attempts {
+    font-weight: bold;
+    text-align: center;
+    font-size: 20px;
+}
+
 #page .word_letters {
     text-align: center;
     height: 30px;
