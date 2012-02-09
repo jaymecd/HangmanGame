@@ -67,10 +67,7 @@ class GameControllerTest extends WebTestCase
 
     public function testTryWord()
     {
-        $crawler = $this->client->request('GET', '/game/hangman/?length=3');
-        $form = $crawler->selectButton('Let me guess...')->form();
-        $this->client->submit($form, array('word' => 'php'));
-        $crawler = $this->client->followRedirect();
+        $this->playWord('php');
 
         // Check the game is won
         $response = $this->client->getResponse();
@@ -79,13 +76,18 @@ class GameControllerTest extends WebTestCase
 
     public function testGameOverHanged()
     {
-        $crawler = $this->client->request('GET', '/game/hangman/?length=3');
-        $form = $crawler->selectButton('Let me guess...')->form();
-        $this->client->submit($form, array('word' => 'foo'));
-        $crawler = $this->client->followRedirect();
+        $this->playWord('foo');
 
         $response = $this->client->getResponse();
         $this->assertRegexp("/Oops, you're hanged/", $response->getContent());
+    }
+
+    private function playWord($word)
+    {
+        $crawler = $this->client->request('GET', '/game/hangman/');
+        $form = $crawler->selectButton('Let me guess...')->form();
+        $this->client->submit($form, array('word' => $word));
+        $crawler = $this->client->followRedirect();
     }
 
     public function testGuessLetterAndGetHanged()
