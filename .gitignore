@@ -2,3 +2,7 @@ app/logs
 app/cache
 coverage
 vendor
+
+.settings
+.buildpath
+.project
