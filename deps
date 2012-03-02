@@ -61,3 +61,7 @@
     git=http://github.com/symfony/AsseticBundle.git
     target=/bundles/Symfony/Bundle/AsseticBundle
     version=v1.0.1
+
+[ApcProfilerBundle]
+    git=http://github.com/stealth35/ApcProfilerBundle.git
+    target=bundles/Stealth35/ApcProfilerBundle

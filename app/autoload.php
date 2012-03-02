@@ -1,14 +1,18 @@
 <?php
 
-require __DIR__.'/../vendor/symfony/src/Symfony/Component/ClassLoader/ApcUniversalClassLoader.php';
+//require __DIR__.'/../vendor/symfony/src/Symfony/Component/ClassLoader/ApcUniversalClassLoader.php';
+//require __DIR__.'/../vendor/symfony/src/Symfony/Component/ClassLoader/UniversalClassLoader.php';
 
-//use Symfony\Component\ClassLoader\UniversalClassLoader;
+use Symfony\Component\ClassLoader\UniversalClassLoader;
+//use Symfony\Component\ClassLoader\ApcUniversalClassLoader;
+
+//$loader = new ApcUniversalClassLoader('rand239893_435efeEFX_');
+
+$loader = new UniversalClassLoader();
+
 use Doctrine\Common\Annotations\AnnotationRegistry;
-use Symfony\Component\ClassLoader\ApcUniversalClassLoader;
 
-$loader = new ApcUniversalClassLoader('rand239893_435efeEFX_');
 
-// $loader = new UniversalClassLoader();
 $loader->registerNamespaces(array(
     'Symfony'          => array(__DIR__.'/../vendor/symfony/src', __DIR__.'/../vendor/bundles'),
     'Sensio'           => __DIR__.'/../vendor/bundles',
@@ -19,6 +23,7 @@ $loader->registerNamespaces(array(
     'Monolog'          => __DIR__.'/../vendor/monolog/src',
     'Assetic'          => __DIR__.'/../vendor/assetic/src',
     'Metadata'         => __DIR__.'/../vendor/metadata/src',
+    'Stealth35'        => __DIR__.'/../vendor/bundles',
     'Game'             => __DIR__.'/../src',
 ));
 $loader->registerPrefixes(array(
