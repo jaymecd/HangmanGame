@@ -21,10 +21,10 @@ class GameTest extends \PHPUnit_Framework_TestCase
         $game = new Game(new Word('php'));
 
         $game->tryLetter('h');
-        $this->assertEquals(Game::MAX_ATTEMPTS, $game->getRemainingAttempts());
+        $this->assertEquals($game->getMaxAttempts(), $game->getRemainingAttempts());
 
         $game->tryLetter('o');
-        $this->assertEquals(Game::MAX_ATTEMPTS - 1, $game->getRemainingAttempts());
+        $this->assertEquals($game->getMaxAttempts() - 1, $game->getRemainingAttempts());
 
         $game->tryWord('foo');
         $this->assertEquals(0, $game->getRemainingAttempts());
@@ -69,7 +69,7 @@ class GameTest extends \PHPUnit_Framework_TestCase
             $this->assertFalse($game->isHanged());
             $game->tryLetter('a');
             $i++;
-        } while ($i < Game::MAX_ATTEMPTS);
+        } while ($i < $game->getMaxAttempts());
 
         $this->assertTrue($game->isHanged());
     }
@@ -86,7 +86,7 @@ class GameTest extends \PHPUnit_Framework_TestCase
     {
         $game = new Game(new Word('php'));
         $this->assertFalse($game->tryWord('html'));
-        $this->assertEquals(Game::MAX_ATTEMPTS, $game->getAttempts());
+        $this->assertEquals($game->getMaxAttempts(), $game->getAttempts());
     }
 
     public function testTryLetter()

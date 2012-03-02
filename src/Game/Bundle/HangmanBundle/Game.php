@@ -2,10 +2,8 @@
 
 namespace Game\Bundle\HangmanBundle;
 
-class Game 
+class Game
 {
-    const MAX_ATTEMPTS = 11;
-
     private $word;
     private $attempts;
 
@@ -25,9 +23,16 @@ class Game
         );
     }
 
+    public function getMaxAttempts()
+    {
+        $len = strlen($this->word->getWord());
+
+        return $len + 1;
+    }
+
     public function getRemainingAttempts()
     {
-        return static::MAX_ATTEMPTS - $this->attempts;
+        return $this->getMaxAttempts() - $this->attempts;
     }
 
     public function isLetterFound($letter)
@@ -37,7 +42,7 @@ class Game
 
     public function isHanged()
     {
-        return static::MAX_ATTEMPTS === $this->attempts;
+        return $this->getMaxAttempts() === $this->attempts;
     }
 
     public function isWon()
@@ -68,7 +73,7 @@ class Game
             return true;
         }
 
-        $this->attempts = self::MAX_ATTEMPTS;
+        $this->attempts = $this->getMaxAttempts();
 
         return false;
     }
@@ -77,7 +82,8 @@ class Game
     {
         try {
             $result = $this->word->tryLetter($letter);
-        } catch (\InvalidArgumentException $e) {
+        }
+        catch (\InvalidArgumentException $e) {
             $result = false;
         }
 

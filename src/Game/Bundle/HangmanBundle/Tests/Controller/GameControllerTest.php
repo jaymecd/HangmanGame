@@ -3,10 +3,12 @@
 namespace Game\Bundle\HangmanBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Game\Bundle\HangmanBundle\Game;
 
 class GameControllerTest extends WebTestCase
 {
+    /**
+     * @var \Symfony\Component\BrowserKit\Client
+     */
     private $client;
 
     public function setUp()
@@ -101,10 +103,14 @@ class GameControllerTest extends WebTestCase
     public function testGuessLetterAndGetHanged()
     {
         $crawler = $this->client->request('GET', '/game/hangman/?length=3');
+        $left = (int) $crawler->filter('.attempts-left')->text();
+
+        $this->assertGreaterThan(0, $left);
 
         // Play the same letter until reaching the hanged status
-        for ($i = 0; $i < Game::MAX_ATTEMPTS; $i++) {
+        for ($i = 0; $i < $left; $i++) {
             $letter = $crawler->selectLink('Z')->link();
+
             $this->client->click($letter);
             $this->client->followRedirect();
         }

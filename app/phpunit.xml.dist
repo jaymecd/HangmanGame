@@ -37,5 +37,18 @@
             </exclude>
         </whitelist>
     </filter>
+    
+   <logging> 
+        <log type="coverage-html" target="./logs/tests/report" charset="UTF-8"
+            yui="true" highlight="false" lowUpperBound="40" highLowerBound="80"/>
+        <log type="coverage-clover" target="./logs/tests/coverage.xml"/>
+        <log type="coverage-php" target="./logs/tests/coverage.serialized"/>
+        <log type="coverage-text" target="./logs/tests/coverage.txt" showUncoveredFiles="false"/>
+        <log type="json" target="./logs/tests/logfile.json"/>
+        <log type="tap" target="./logs/tests/logfile.tap"/>
+        <log type="junit" target="./logs/tests/logfile.xml" logIncompleteSkipped="false"/>
+        <log type="testdox-html" target="./logs/tests/testdox.html"/>
+        <log type="testdox-text" target="./logs/tests/testdox.txt"/>
+    </logging>    
 
 </phpunit>
