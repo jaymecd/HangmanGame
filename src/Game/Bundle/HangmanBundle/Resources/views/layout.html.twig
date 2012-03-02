@@ -1,12 +1,15 @@
-<!DOCTYPE html>
+<!DOCTYPE html xxx>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>{% block title %}The Hangman Workshop{% endblock %}</title>
+
         {% block stylesheets %}{% endblock %}
+
         <link href="http://fonts.googleapis.com/css?family=Arvo" rel="stylesheet" type="text/css" />
-        <link rel="stylesheet" type="text/css" href="{{ asset('/bundles/gamehangman/css/style.css') }}" />
+
         <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
+        <link rel="stylesheet" type="text/css" href="{{ asset('bundles/gamehangman/css/style.css') }}" x="1" />
     </head>
     <body>
         <div id="wrapper">
@@ -66,7 +69,7 @@
             </div>
         </div>
 
-    {#
+
         <div id="footer">
             Symfony Workshop - Hangman Game - Feel free to reuse :)
         </div>
@@ -77,7 +80,7 @@
             <p>
                 Want to <a href="{{ path('game_reset') }}">reset the game</a>?
             </p>
-        #}
+
         {% block javascripts %}{% endblock %}
     </body>
 </html>

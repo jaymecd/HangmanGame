@@ -1,9 +1,14 @@
 <?php
 
-use Symfony\Component\ClassLoader\UniversalClassLoader;
-use Doctrine\Common\Annotations\AnnotationRegistry;
+require __DIR__.'/../vendor/symfony/src/Symfony/Component/ClassLoader/ApcUniversalClassLoader.php';
 
-$loader = new UniversalClassLoader();
+//use Symfony\Component\ClassLoader\UniversalClassLoader;
+use Doctrine\Common\Annotations\AnnotationRegistry;
+use Symfony\Component\ClassLoader\ApcUniversalClassLoader;
+
+$loader = new ApcUniversalClassLoader('rand239893_435efeEFX_');
+
+// $loader = new UniversalClassLoader();
 $loader->registerNamespaces(array(
     'Symfony'          => array(__DIR__.'/../vendor/symfony/src', __DIR__.'/../vendor/bundles'),
     'Sensio'           => __DIR__.'/../vendor/bundles',
