@@ -3,9 +3,10 @@
 namespace Game\Bundle\HangmanBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\Config\FileLocator;
-use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader;
+use Symfony\Component\Config\FileLocator;
+use Symfony\Component\Config\Definition\Processor;
+use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 /**
  * This is the class that loads and manages your bundle configuration
@@ -19,19 +20,21 @@ class GameHangmanExtension extends Extension
      */
     public function load(array $configs, ContainerBuilder $container)
     {
+        $processor     = new Processor();
+        $configuration = new Configuration();
+
+        $config = $processor->process($configuration->getConfigTree(), $configs);
+
+        $filesToLoad = array(
+            'services.xml',
+        );
+
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-        $loader->load('services.xml');
 
-        $env = $container->getParameter('kernel.environment');
-
-        if ($env == 'test') {
-            $dictionaries = array(__DIR__.'/../Tests/Fixtures/words.txt');
-        }
-        else {
-            $config = current($configs);
-            $dictionaries = $config['dictionaries'];
+        foreach ($filesToLoad as $file) {
+            $loader->load($file);
         }
 
-        $container->setParameter('hangman.word_list.dictionaries', $dictionaries);
+        $container->setParameter('hangman.word_list.dictionaries', $config['dictionaries']);
     }
 }

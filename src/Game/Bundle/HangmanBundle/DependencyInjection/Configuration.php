@@ -22,13 +22,20 @@ class Configuration implements ConfigurationInterface
         $rootNode
             ->children()
                 ->arrayNode('dictionaries')
-                    ->ignoreExtraKeys()
                     ->isRequired()
                     ->requiresAtLeastOneElement()
+                    ->prototype('scalar')->end()
                 ->end()
-            ->end()
-        ;
+            ->end();
 
         return $treeBuilder;
+    }
+
+    /**
+     * @return \Symfony\Component\Config\Definition\Builder\NodeInterface
+     */
+    public function getConfigTree()
+    {
+        return $this->getConfigTreeBuilder()->buildTree();
     }
 }

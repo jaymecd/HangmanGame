@@ -40,6 +40,11 @@ class Game
         return in_array(strtolower($letter), $this->word->getFoundLetters());
     }
 
+    public function isLetterTried($letter)
+    {
+        return in_array(strtolower($letter), $this->word->getTriedLetters());
+    }
+
     public function isHanged()
     {
         return $this->getMaxAttempts() === $this->attempts;
