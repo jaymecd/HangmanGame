@@ -34,10 +34,12 @@
 
         <ul>
             {% for letter in 'A'..'Z' %}
-                <li class="letter">
-                    <a href="{{ path('play_letter', { 'letter': letter }) }}">
-                        {{ letter }}
-                    </a>
+                <li class="letter {{ game.isLetterFound(letter) ? 'guessed' : 'hidden' }}">
+                {% if game.isLetterFound(letter) %}
+                    <span>{{ letter }}</span>
+                {% else %}
+                    <a href="{{ path('play_letter', {'letter': letter}) }}">{{ letter }}</a>
+                {% endif %}
                 </li>
             {% endfor %}
         </ul>

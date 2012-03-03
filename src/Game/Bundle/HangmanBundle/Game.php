@@ -37,7 +37,7 @@ class Game
 
     public function isLetterFound($letter)
     {
-        return in_array($letter, $this->word->getFoundLetters());
+        return in_array(strtolower($letter), $this->word->getFoundLetters());
     }
 
     public function isHanged()
@@ -67,7 +67,7 @@ class Game
 
     public function tryWord($word)
     {
-        if ($word === $this->word->getWord()) {
+        if (0 == strcasecmp($word, $this->word->getWord())) {
             $this->word->guessed();
 
             return true;

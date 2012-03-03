@@ -2,7 +2,7 @@
 
 namespace Game\Bundle\HangmanBundle;
 
-class Word 
+class Word
 {
     private $word;
 
@@ -17,9 +17,9 @@ class Word
      */
     public function __construct($word, array $foundLetters = array(), array $triedLetters = array())
     {
-        $this->word = $word;
-        $this->foundLetters = $foundLetters;
-        $this->triedLetters = $triedLetters;
+        $this->word = strtolower($word);
+        $this->foundLetters = array_map('strtolower', $foundLetters);
+        $this->triedLetters = array_map('strtolower', $triedLetters);
     }
 
     public function __toString()
