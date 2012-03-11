@@ -2,17 +2,22 @@
 
 namespace Game\Bundle\HangmanBundle;
 
-use Symfony\Component\HttpFoundation\SessionStorage\SessionStorageInterface;
+use Symfony\Component\EventDispatcher\EventDispatcher as Dispatcher;
+use Symfony\Component\EventDispatcher\Event;
+use Symfony\Component\HttpFoundation\Session;
 
 class GameContext
 {
-    private $storage;
+    protected $session;
 
-    private $wordList;
+    protected $wordList;
 
-    public function __construct(SessionStorageInterface $storage, WordList $list)
+    protected $dispatcher;
+
+    public function __construct(Dispatcher $dispatcher, Session $session, WordList $list)
     {
-        $this->storage = $storage;
+    	$this->dispatcher = $dispatcher;
+        $this->session = $session;
         $this->wordList = $list;
     }
 
@@ -23,12 +28,21 @@ class GameContext
 
     public function reset()
     {
-        $this->storage->write('hangman', array());
+        $this->session->remove('hangman');
     }
 
     public function newGame($length)
     {
-        return new Game($this->getRandomWord($length));
+    	$word = $this->getRandomWord($length);
+
+    	$evt = new Event();
+    	$evt->letter = implode('; ',array(
+    		'len = '. $length,
+    		'word = '. $word,
+		));
+    	$this->dispatcher->dispatch('hangman.letter.try', $evt);
+
+        return new Game($word);
     }
 
     public function getRandomWord($length)
@@ -38,9 +52,9 @@ class GameContext
 
     public function loadGame()
     {
-        $data = $this->storage->read('hangman');
+        $data = $this->session->get('hangman');
 
-        if (!count($data)) {
+        if (!$data || !is_array($data)) {
             return false;
         }
 
@@ -51,6 +65,6 @@ class GameContext
 
     public function save(Game $game)
     {
-        $this->storage->write('hangman', $game->getContext());
+        $this->session->set('hangman', $game->getContext());
     }
 }

@@ -87,6 +87,11 @@ class Game
     {
         try {
             $result = $this->word->tryLetter($letter);
+
+//             $evt = new Event;
+//             $evt->letter = $letter;
+
+//             $this->dispatcher->dispatch('hangman.letter.try', $evt);
         }
         catch (\InvalidArgumentException $e) {
             $result = false;

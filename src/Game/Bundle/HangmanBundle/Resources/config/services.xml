@@ -8,18 +8,24 @@
         <parameter key="hangman.word_length">3</parameter>
         <parameter key="hangman.game_context.class">Game\Bundle\HangmanBundle\GameContext</parameter>
         <parameter key="hangman.word_list.class">Game\Bundle\HangmanBundle\WordList</parameter>
+        <parameter key="hangman.letter_listener.class">Game\Bundle\HangmanBundle\EventListener\LetterListener</parameter>
         <parameter key="hangman.word_list.dictionaries" type="collection"/>
     </parameters>
 
     <services>
         <service id="hangman.game_context" class="%hangman.game_context.class%">
-            <argument type="service" id="session.storage" />
+        	<argument type="service" id="event_dispatcher" />
+            <argument type="service" id="session" />
             <argument type="service" id="hangman.word_list" />
         </service>
 
         <service id="hangman.word_list" class="%hangman.word_list.class%" public="false">
             <argument>%hangman.word_list.dictionaries%</argument>
             <call method="loadDictionaries"/>
+        </service>
+
+        <service id="hangman.letter.listener" class="%hangman.letter_listener.class%">
+            <tag name="kernel.event_listener" event="hangman.letter.try" method="onLetterTry" />
         </service>
 
     </services>
