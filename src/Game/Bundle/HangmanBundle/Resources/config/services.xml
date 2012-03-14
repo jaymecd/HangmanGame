@@ -25,7 +25,7 @@
         </service>
 
         <service id="hangman.letter.listener" class="%hangman.letter_listener.class%">
-            <tag name="kernel.event_listener" event="hangman.letter.try" method="onLetterTry" />
+            <tag name="kernel.event_subscriber" />
         </service>
 
     </services>

@@ -2,7 +2,7 @@
 
 namespace Game\Bundle\HangmanBundle;
 
-use Symfony\Component\EventDispatcher\EventDispatcher as Dispatcher;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\HttpFoundation\Session;
 
@@ -14,9 +14,9 @@ class GameContext
 
     protected $dispatcher;
 
-    public function __construct(Dispatcher $dispatcher, Session $session, WordList $list)
+    public function __construct(EventDispatcher $dispatcher, Session $session, WordList $list)
     {
-    	$this->dispatcher = $dispatcher;
+        $this->dispatcher = $dispatcher;
         $this->session = $session;
         $this->wordList = $list;
     }
@@ -31,18 +31,15 @@ class GameContext
         $this->session->remove('hangman');
     }
 
+    /**
+     * @param unknown_type $length
+     * @return \Game\Bundle\HangmanBundle\Game
+     */
     public function newGame($length)
     {
-    	$word = $this->getRandomWord($length);
-
-    	$evt = new Event();
-    	$evt->letter = implode('; ',array(
-    		'len = '. $length,
-    		'word = '. $word,
-		));
-    	$this->dispatcher->dispatch('hangman.letter.try', $evt);
-
-        return new Game($word);
+        $game = new Game($this->getRandomWord($length));
+        $game->setEventDispatcher($this->dispatcher);
+        return $game;
     }
 
     public function getRandomWord($length)
@@ -60,7 +57,9 @@ class GameContext
 
         $word = new Word($data['word'], $data['found_letters'], $data['tried_letters']);
 
-        return new Game($word, $data['attempts']);
+        $game = new Game($word, $data['attempts']);
+        $game->setEventDispatcher($this->dispatcher);
+        return $game;
     }
 
     public function save(Game $game)

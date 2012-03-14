@@ -2,15 +2,32 @@
 
 namespace Game\Bundle\HangmanBundle;
 
+use Symfony\Component\EventDispatcher\EventDispatcher;
+use Game\Bundle\HangmanBundle\Event\EventMapping;
+use Game\Bundle\HangmanBundle\Event\GameEvent;
+
 class Game
 {
-    private $word;
-    private $attempts;
+    protected $word;
+    protected $attempts;
+
+    /**
+     * @var EventDispatcher
+     */
+    protected $dispatcher;
 
     public function __construct(Word $word, $attempts = 0)
     {
         $this->word = $word;
         $this->attempts = (int) $attempts;
+    }
+
+    /**
+     * @param EventDispatcher $dispatcher
+     */
+    public function setEventDispatcher(EventDispatcher $dispatcher)
+    {
+    	$this->dispatcher = $dispatcher;
     }
 
     public function getContext()
@@ -72,26 +89,23 @@ class Game
 
     public function tryWord($word)
     {
+    	$this->dispatch(EventMapping::onWordTry, $word);
+
         if (0 == strcasecmp($word, $this->word->getWord())) {
             $this->word->guessed();
-
             return true;
         }
 
         $this->attempts = $this->getMaxAttempts();
-
         return false;
     }
 
     public function tryLetter($letter)
     {
+    	$this->dispatch(EventMapping::onLetterTry, $letter);
+
         try {
             $result = $this->word->tryLetter($letter);
-
-//             $evt = new Event;
-//             $evt->letter = $letter;
-
-//             $this->dispatcher->dispatch('hangman.letter.try', $evt);
         }
         catch (\InvalidArgumentException $e) {
             $result = false;
@@ -102,5 +116,12 @@ class Game
         }
 
         return $result;
+    }
+
+    protected function dispatch($type, $value)
+    {
+        if (isset($this->dispatcher)) {
+            $this->dispatcher->dispatch($type, new GameEvent($value));
+        }
     }
 }

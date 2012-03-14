@@ -2,18 +2,33 @@
 
 namespace Game\Bundle\HangmanBundle\EventListener;
 
-use Symfony\Component\EventDispatcher\Event;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Game\Bundle\HangmanBundle\Event\EventMapping;
+use Game\Bundle\HangmanBundle\Event\GameEvent;
 
-class LetterListener
+class LetterListener implements EventSubscriberInterface
 {
-    public function __construct()
+	static public function getSubscribedEvents()
+	{
+		return array(
+			EventMapping::onLetterTry => 'onLetterTry',
+			EventMapping::onWordTry   => 'onWordTry',
+		);
+	}
+
+    public function onLetterTry(GameEvent $event)
     {
+        $value = $event->getValue();
+        $data = 'letter: '. $value . PHP_EOL;
+
+        file_put_contents('/tmp/letter.log', $data, FILE_APPEND);
     }
 
-    public function onLetterTry(Event $event)
+    public function onWordTry(GameEvent $event)
     {
-        $letter = $event->letter;
+    	$value = $event->getValue();
+    	$data = 'word: '. $value . PHP_EOL;
 
-        file_put_contents('/tmp/letter.log', $letter.PHP_EOL, FILE_APPEND);
+    	file_put_contents('/tmp/letter.log', $data, FILE_APPEND);
     }
 }
